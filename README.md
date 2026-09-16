@@ -63,4 +63,4 @@ Search for **Indigo Lagoon Theme** in the Chrome Web Store and install it.
 
 ## License
 
-Non-Commercial License — free for personal use. Commercial use is not permitted without permission.
+Non-Commercial License — personal use permitted. Commercial use requires permission.

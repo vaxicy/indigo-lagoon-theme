@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'store-assets'/'references'
 OUT.mkdir(parents=True,exist_ok=True)
 C=json.loads((ROOT/'manifest.json').read_text('utf-8-sig'))['theme']['colors']
-C['preview_logo']=C['ntp_link']  # Illustrative; verify in installed Chrome
+LOGO_HEX='#B6B69A'  # Sampled from installed Chrome: ntp_logo_alternate tints the Google mark on the off-white NTP
 def color(k): return '#%02X%02X%02X'%tuple(C[k])
 css=f''':root{{--milk:{color('ntp_background')};--oat:{color('toolbar')};--sand:{color('frame')};--ink:{color('ntp_text')};--taupe:{color('frame_inactive')};}}'''+'''
 *{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Arial,sans-serif;background:var(--milk)}
@@ -27,14 +27,20 @@ css += f'''
 .tabs{{color:{color('tab_background_text')};}}
 .tab.active{{color:var(--ink);}}
 .omni{{background:{color('omnibox_background')};}}
-.google{{color:#118AB2;}}
+.google{{color:{LOGO_HEX};}}
 .circle{{background:{color('frame_inactive')};}}
 .large .copy{{width:650px;}}
 '''
 
 def browser(bookmarks=False):
     bm='<div class="bookmarks"><span>▱ Bookmarks</span><span>▱ Reading</span><span>▱ Design</span><span>▱ Inspiration</span></div>' if bookmarks else ''
-    return '<div class="browser"><div class="tabs"><div class="tab active">New Tab <span class="close">×</span></div><div class="tab">Reading list <span class="close">×</span></div><span style="padding:10px">+</span><span style="margin-left:auto;padding:10px 12px;letter-spacing:22px;color:#FFFCF8">− □ ×</span></div><div class="tools"><span>←</span><span>→</span><span>↻</span><div class="omni">Search or type a URL</div><span>☆</span><span>⋮</span></div>'+bm+'<div class="content"><div class="google">Google</div><div class="search">Search Google or type a URL</div></div></div>'
+    shortcuts=('<div class="shortcuts">'
+        '<div class="shortcut"><div class="circle"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="#FF0033"/></svg></div>Videos</div>'
+        '<div class="shortcut"><div class="circle"><svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="#118AB2" stroke-width="2"/><path d="M4 12h16M12 4c2.6 3.4 2.6 12.6 0 16M12 4c-2.6 3.4-2.6 12.6 0 16" fill="none" stroke="#118AB2" stroke-width="2"/></svg></div>Web</div>'
+        '<div class="shortcut add"><div class="circle"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="#5F6C7B" stroke-width="2.4" stroke-linecap="round"/></svg></div>Add shortcut</div>'
+        '</div>')
+    customize='<div class="customize"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4-1 10-10-3-3L5 16z" fill="none" stroke="#F2F2ED" stroke-width="2"/></svg>Customize Chrome</div>'
+    return '<div class="browser"><div class="tabs"><div class="tab active">New Tab <span class="close">×</span></div><div class="tab">Reading list <span class="close">×</span></div><span style="padding:10px">+</span><span style="margin-left:auto;padding:10px 12px;letter-spacing:22px;color:#FFFCF8">− □ ×</span></div><div class="tools"><span>←</span><span>→</span><span>↻</span><div class="omni">Search or type a URL</div><span>☆</span><span>⋮</span></div>'+bm+'<div class="content"><div class="google">Google</div><div class="search">Search Google or type a URL</div>'+shortcuts+'</div>'+customize+'</div>'
 
 def swatches():return '<div class="swatches">'+''.join(f'<div class="swatch" style="background:var(--{c})"></div>' for c in ('sand','milk','taupe','evergreen'))+'</div>'
 def page(body):
@@ -73,7 +79,7 @@ css += """
 .omni{height:34px;padding:8px 16px;border:2px solid #677894}
 .bookmarks{height:34px;padding:9px 20px;border-bottom-color:#BCB0A6}
 .content{padding-top:109px}
-.google{margin-bottom:20px;color:#118AB2}
+.google{margin-bottom:20px}
 .search{height:42px}
 .tea .window .content{padding-top:85px}
 """
@@ -84,6 +90,11 @@ css += """
 .poster p{font-size:17px;margin:0}
 .poster .preview{position:absolute;left:284px;top:145px;transform:scale(.65);transform-origin:top left;border:2px solid #118AB2;border-radius:16px;overflow:hidden;text-align:left}
 .poster .browser{height:610px}.poster .content{padding-top:55px}
+.shortcuts{display:flex;justify-content:center;gap:40px;margin-top:34px}
+.shortcut{width:86px;font-size:12px;text-align:center}
+.shortcut .circle{width:48px;height:48px;border-radius:50%;margin:0 auto 10px;padding:0;display:flex;align-items:center;justify-content:center;line-height:0;background:#FFFFFF;box-shadow:0 1px 4px #00000012}
+.shortcut.add .circle{background:#E7E7DC;box-shadow:none}
+.customize{position:absolute;right:22px;bottom:16px;background:#202124;color:#F2F2ED;font-size:12px;border-radius:16px;padding:8px 14px;display:flex;align-items:center;gap:6px}
 .tea.small h1{font-size:36px}.tea.small p{color:var(--milk)}
 .intro{width:1280px;height:800px;padding:65px 72px;background:var(--milk)}
 .intro h1{font:54px Georgia,serif;margin:20px 0}.intro p{font-size:21px}

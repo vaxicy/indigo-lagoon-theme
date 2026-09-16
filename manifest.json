@@ -1,0 +1,96 @@
+{
+  "manifest_version": 3,
+  "name": "Indigo Lagoon Theme",
+  "version": "1.0.0",
+  "description": "A calm Chrome theme with muted indigo, lagoon blue, and refreshing mint.",
+  "icons": {
+    "128": "logo/logo128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        70,
+        75,
+        113
+      ],
+      "frame_inactive": [
+        70,
+        75,
+        113
+      ],
+      "toolbar": [
+        124,
+        213,
+        199
+      ],
+      "tab_text": [
+        70,
+        75,
+        113
+      ],
+      "tab_background_text": [
+        242,
+        242,
+        237
+      ],
+      "tab_background_text_inactive": [
+        242,
+        242,
+        237
+      ],
+      "bookmark_text": [
+        70,
+        75,
+        113
+      ],
+      "toolbar_text": [
+        70,
+        75,
+        113
+      ],
+      "toolbar_button_icon": [
+        70,
+        75,
+        113
+      ],
+      "omnibox_background": [
+        255,
+        255,
+        255
+      ],
+      "omnibox_text": [
+        70,
+        75,
+        113
+      ],
+      "ntp_background": [
+        242,
+        242,
+        237
+      ],
+      "ntp_text": [
+        70,
+        75,
+        113
+      ],
+      "ntp_link": [
+        17,
+        138,
+        178
+      ],
+      "ntp_header": [
+        17,
+        138,
+        178
+      ],
+      "button_background": [
+        70,
+        75,
+        113
+      ]
+    },
+    "properties": {
+      "ntp_logo_alternate": 1
+    }
+  }
+}
